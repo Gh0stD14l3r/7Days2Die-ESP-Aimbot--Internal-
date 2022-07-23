@@ -36,36 +36,49 @@ namespace Game_7D2D
 
         public void Update()
         {
-            Modules.Hotkeys.hotkeys();
-
-            // 5 Second timer to loop entities and objects to return to lists
-            Timer += Time.deltaTime; 
-            if (Timer >= 5f) 
+            if (isLoaded)
             {
-                Timer = 0f;
+                Modules.Hotkeys.hotkeys();
 
-                MainCamera = Camera.main;
+                // 5 Second timer to loop entities and objects to return to lists
+                Timer += Time.deltaTime;
+                if (Timer >= 5f)
+                {
+                    Timer = 0f;
 
-                eEnemy = UnityEngine.GameObject.FindObjectsOfType<EntityEnemy>().ToList();
-                eItem = UnityEngine.GameObject.FindObjectsOfType<EntityItem>().ToList();
-                eNPC = UnityEngine.GameObject.FindObjectsOfType<EntityNPC>().ToList();
-                ePlayers = UnityEngine.GameObject.FindObjectsOfType<EntityPlayer>().ToList();
-                eAnimal = UnityEngine.GameObject.FindObjectsOfType<EntityAnimal>().ToList();
-                eWeapons = UnityEngine.GameObject.FindObjectsOfType<vp_FPWeapon>().ToList();
-                eLoot = UnityEngine.GameObject.FindObjectsOfType<EntitySupplyCrate>().ToList();
-                
-                eLocalPlayer = UnityEngine.GameObject.FindObjectOfType<EntityPlayerLocal>();
+                    MainCamera = Camera.main;
+
+                    eEnemy = UnityEngine.GameObject.FindObjectsOfType<EntityEnemy>().ToList();
+                    eItem = UnityEngine.GameObject.FindObjectsOfType<EntityItem>().ToList();
+                    eNPC = UnityEngine.GameObject.FindObjectsOfType<EntityNPC>().ToList();
+                    ePlayers = UnityEngine.GameObject.FindObjectsOfType<EntityPlayer>().ToList();
+                    eAnimal = UnityEngine.GameObject.FindObjectsOfType<EntityAnimal>().ToList();
+                    eWeapons = UnityEngine.GameObject.FindObjectsOfType<vp_FPWeapon>().ToList();
+                    eLoot = UnityEngine.GameObject.FindObjectsOfType<EntitySupplyCrate>().ToList();
+
+                    eLocalPlayer = UnityEngine.GameObject.FindObjectOfType<EntityPlayerLocal>();
+                }
             }
             
-
             checkState();
-            
         }
 
         public void OnGUI()
         {
+            if (!isLoaded)
+            {
+                GUI.Box(new Rect(5f, 5f, 250f, 35f), "");
+                GUI.Label(new Rect(10f, 5f, 250f, 30f), "Menu will load when in a game");
+                return;
+            }
+
             Modules.UI.DrawMenu();
-            
+
+            if (Modules.UI.t_AAIM && Modules.UI.t_TFOV)
+            {
+                Render.DrawCircle(new Vector2((float)Screen.width / 2, (float)Screen.height / 2), 150, Color.green, 1f, false, 150);
+            }
+
             if (Modules.UI.t_EnemyESP)
             {
                 foreach (EntityEnemy Enemy in eEnemy)
@@ -137,10 +150,9 @@ namespace Game_7D2D
                 }
             }
 
+            
+
         }
-
-        
-
         private void checkState()
         {
             if (isLoaded != GameManager.Instance.gameStateManager.IsGameStarted())
@@ -148,6 +160,8 @@ namespace Game_7D2D
                 isLoaded = !isLoaded;
             }
         }
+
+
 
     }
 }

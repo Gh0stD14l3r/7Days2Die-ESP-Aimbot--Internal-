@@ -13,17 +13,24 @@ namespace Game_7D2D.Modules
         public static bool t_ESP = false;
         public static bool t_ZombieESP = false;
         public static bool t_EnemyESP = false;
+        public static bool t_EnemyBones = false;
         public static bool t_ItemESP = false;
         public static bool t_NPCESP = false;
         public static bool t_PlayerESP = false;
         public static bool t_AnimalESP = false;
+        public static bool t_ESPLines = false;
+        public static bool t_ESPBoxes = true;
+
         private static bool toggleESP = false;
         private static bool toggleZombie = false;
         private static bool toggleEnemy = false;
+        private static bool toggleEnemyBones = false;
         private static bool toggleItem = false;
         private static bool toggleNPC = false;
         private static bool togglePlayer = false;
         private static bool toggleAnimal = false;
+        private static bool toggleESPLines = false;
+        private static bool toggleESPBoxes = false;
 
         //******* Aimbot Toggle Variables ********
         public static bool t_AIM = false;
@@ -36,11 +43,13 @@ namespace Game_7D2D.Modules
         public static bool t_TEnemies = false;
         public static bool t_TAnimals = false;
         public static bool t_TPlayers = false;
+        public static bool t_TFOV = false;
 
         private static bool toggleAimBot = false;
         private static bool toggleAAim = false;
 
         private static bool toggleTEnemies = false;
+        private static bool toggleTFOV = false;
         private static bool toggleTAnimals = false;
         private static bool toggleTPlayers = false;
 
@@ -69,39 +78,53 @@ namespace Game_7D2D.Modules
                 }
                 //GUI.Label(new Rect(10f, 85f, (float)Screen.width, (float)Screen.height), dbg);
 
-
             }
 
             if (Hacks.Menu && Hacks.isLoaded && t_ESP)
             {
                 float basex = 260f;
 
-                GUI.Box(new Rect(basex, 5f, 100f, 160f), "");
+                GUI.Box(new Rect(basex, 5f, 210f, 160f), "");
                 
-                toggleEnemy = GUI.Toggle(new Rect(basex + 10f, 10f, 100f, 25f), t_EnemyESP, "Enemy ESP");
+                toggleEnemy = GUI.Toggle(new Rect(basex + 10f, 10f, 95f, 25f), t_EnemyESP, "Enemy ESP");
                 if (toggleEnemy != t_EnemyESP)
                 {
                     t_EnemyESP = !t_EnemyESP;
                 }
-                toggleItem = GUI.Toggle(new Rect(basex + 10f, 35f, 100f, 25f), t_ItemESP, "Item ESP");
+                toggleItem = GUI.Toggle(new Rect(basex + 10f, 35f, 95f, 25f), t_ItemESP, "Item ESP");
                 if (toggleItem != t_ItemESP)
                 {
                     t_ItemESP = !t_ItemESP;
                 }
-                toggleNPC = GUI.Toggle(new Rect(basex + 10f, 60f, 100f, 25f), t_NPCESP, "NPC ESP");
+                toggleNPC = GUI.Toggle(new Rect(basex + 10f, 60f, 95f, 25f), t_NPCESP, "NPC ESP");
                 if (toggleNPC != t_NPCESP)
                 {
                     t_NPCESP = !t_NPCESP;
                 }
-                togglePlayer = GUI.Toggle(new Rect(basex + 10f, 85f, 100f, 25f), t_PlayerESP, "Player ESP");
+                togglePlayer = GUI.Toggle(new Rect(basex + 10f, 85f, 95f, 25f), t_PlayerESP, "Player ESP");
                 if (togglePlayer != t_PlayerESP)
                 {
                     t_PlayerESP = !t_PlayerESP;
                 }
-                toggleAnimal = GUI.Toggle(new Rect(basex + 10f, 110f, 100f, 25f), t_AnimalESP, "Animal ESP");
+                toggleAnimal = GUI.Toggle(new Rect(basex + 10f, 110f, 95f, 25f), t_AnimalESP, "Animal ESP");
                 if (toggleAnimal != t_AnimalESP)
                 {
                     t_AnimalESP = !t_AnimalESP;
+                }
+                toggleEnemyBones = GUI.Toggle(new Rect(basex + 110f, 10f, 100f, 25f), t_EnemyBones, "Enemy Bones");
+                if (toggleEnemyBones != t_EnemyBones)
+                {
+                    t_EnemyBones = !t_EnemyBones;
+                }
+                toggleESPLines = GUI.Toggle(new Rect(basex + 110f, 35f, 100f, 25f), t_ESPLines, "Draw Lines");
+                if (toggleESPLines != t_ESPLines)
+                {
+                    t_ESPLines = !t_ESPLines;
+                }
+                toggleESPBoxes = GUI.Toggle(new Rect(basex + 110f, 60f, 100f, 25f), t_ESPBoxes, "Draw Boxes");
+                if (toggleESPBoxes != t_ESPBoxes)
+                {
+                    t_ESPBoxes = !t_ESPBoxes;
                 }
             }
 
@@ -109,7 +132,7 @@ namespace Game_7D2D.Modules
             {
                 float basex = 260f;
 
-                GUI.Box(new Rect(basex, 5f, 120f, 120f), "");
+                GUI.Box(new Rect(basex, 5f, 140f, 130f), "");
                 
                 toggleAAim = GUI.Toggle(new Rect(basex + 10f, 10f, 130f, 25f), t_AAIM, "Activate Aimbot");
                 if (toggleAAim != t_AAIM)
@@ -133,6 +156,12 @@ namespace Game_7D2D.Modules
                 if (toggleTPlayers != t_TPlayers)
                 {
                     t_TPlayers = !t_TPlayers;
+                }
+
+                toggleTFOV = GUI.Toggle(new Rect(basex + 10f, 110f, 130f, 25f), t_TFOV, "Show FOV");
+                if (toggleTFOV != t_TFOV)
+                {
+                    t_TFOV = !t_TFOV;
                 }
             }
 

@@ -110,10 +110,22 @@ namespace Game_7D2D.Modules
             {
                 double distX = target.x - Screen.width / 2f;
                 double distY = target.y - Screen.height / 2f;
-
-                distX /= 5;
-                distY /= 5;
-
+                if (Vector2.Distance(new Vector2((float)Screen.width / 2, (float)Screen.height / 2), new Vector2((float)distX, (float)distY)) <= 5f)
+                {
+                    distX /= 1;
+                    distY /= 1;
+                }
+                else if(Vector2.Distance(new Vector2((float)Screen.width / 2, (float)Screen.height / 2), new Vector2((float)distX, (float)distY)) > 5f && Vector2.Distance(new Vector2((float)Screen.width / 2, (float)Screen.height / 2), new Vector2((float)distX, (float)distY)) < 20f) 
+                {
+                    distX /= 2;
+                    distY /= 2;
+                }
+                else
+                {
+                    distX /= 5;
+                    distY /= 5;
+                }
+                
                 mouse_event(0x0001, (int)distX, (int)distY, 0, 0);
             }
 

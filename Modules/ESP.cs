@@ -24,56 +24,68 @@ namespace Game_7D2D.Modules
 
             if (w2s_head.z > 0f && w2s_head.x > 0 && w2s_head.x < (float)Screen.width && w2s_head.y > 0 && Distance <= 100f)
             {
-                DrawESPBox(w2s_feet, w2s_head, color, entity.EntityName);
-                DrawESPBox(w2s_test, new Vector3(w2s_test.x - 1f, w2s_test.y - 1f, w2s_test.z), Color.green, "");
-
-                Transform[] entityBones = entity.GetComponentInChildren<SkinnedMeshRenderer>().bones;
-                int canBone = 0;
-
-                for (int j = 0; j < entityBones.Length; j++)
+                if (UI.t_ESPBoxes)
                 {
-                    if (entityBones[j].name == "Head") { eb_head = Camera.main.WorldToScreenPoint(entityBones[j].transform.position); canBone++; } //Head
-                    if (entityBones[j].name == "Neck") { eb_neck = Camera.main.WorldToScreenPoint(entityBones[j].transform.position); canBone++; } //Neck
-                    if (entityBones[j].name == "Spine") { eb_spine = Camera.main.WorldToScreenPoint(entityBones[j].transform.position); canBone++; } //Spine
-                    if (entityBones[j].name == "LeftShoulder") { eb_leftshoulder = Camera.main.WorldToScreenPoint(entityBones[j].transform.position); canBone++; } //LeftShoulder
-                    if (entityBones[j].name == "LeftArm") { eb_leftarm = Camera.main.WorldToScreenPoint(entityBones[j].transform.position); canBone++; } //LeftArm
-                    if (entityBones[j].name == "LeftForeArm") { eb_leftforearm = Camera.main.WorldToScreenPoint(entityBones[j].transform.position); canBone++; } //LeftForeArm
-                    if (entityBones[j].name == "LeftHand") { eb_lefthand = Camera.main.WorldToScreenPoint(entityBones[j].transform.position); canBone++; } //LeftHand
-                    if (entityBones[j].name == "RightShoulder") { eb_rightshoulder = Camera.main.WorldToScreenPoint(entityBones[j].transform.position); canBone++; } //RightShoulder
-                    if (entityBones[j].name == "RightArm") { eb_rightarm = Camera.main.WorldToScreenPoint(entityBones[j].transform.position); canBone++; } //RightArm
-                    if (entityBones[j].name == "RightForeArm") { eb_rightforearm = Camera.main.WorldToScreenPoint(entityBones[j].transform.position); canBone++; } //RightForeArm
-                    if (entityBones[j].name == "RightHand") { eb_righthand = Camera.main.WorldToScreenPoint(entityBones[j].transform.position); canBone++; } //RightHand
-                    if (entityBones[j].name == "Hips") { eb_hips = Camera.main.WorldToScreenPoint(entityBones[j].transform.position); canBone++; } //Hips
-                    if (entityBones[j].name == "LeftUpLeg") { eb_leftupleg = Camera.main.WorldToScreenPoint(entityBones[j].transform.position); canBone++; } //LeftUpLeg
-                    if (entityBones[j].name == "LeftLeg") { eb_leftleg = Camera.main.WorldToScreenPoint(entityBones[j].transform.position); canBone++; } //LeftLeg
-                    if (entityBones[j].name == "LeftFoot") { eb_leftfoot = Camera.main.WorldToScreenPoint(entityBones[j].transform.position); canBone++; } //LeftFoot
-                    if (entityBones[j].name == "RightUpLeg") { eb_rightupleg = Camera.main.WorldToScreenPoint(entityBones[j].transform.position); canBone++; } //RightUpLeg
-                    if (entityBones[j].name == "RightLeg") { eb_rightleg = Camera.main.WorldToScreenPoint(entityBones[j].transform.position); canBone++; } //RightLeg
-                    if (entityBones[j].name == "RightFoot") { eb_rightfoot = Camera.main.WorldToScreenPoint(entityBones[j].transform.position); canBone++; } //RightFoot
+                    DrawESPBox(w2s_feet, w2s_head, color, entity.EntityName);
+                    DrawESPBox(w2s_test, new Vector3(w2s_test.x - 1f, w2s_test.y - 1f, w2s_test.z), Color.green, "");
                 }
 
-                if (canBone >= 18)
+
+                if (UI.t_ESPLines)
                 {
-                    DrawESPLine(eb_head, eb_neck, Color.green);
-                    DrawESPLine(eb_neck, eb_spine, Color.green);
-                    DrawESPLine(eb_spine, eb_hips, Color.green);
+                    Render.DrawLine(new Vector2(w2s_head.x, (float)Screen.height - w2s_head.y), new Vector2((float)Screen.width / 2, (float)Screen.height - 100), color, 1f);
+                }
 
-                    DrawESPLine(eb_hips, eb_leftupleg, Color.green);
-                    DrawESPLine(eb_leftupleg, eb_leftleg, Color.green);
-                    DrawESPLine(eb_leftleg, eb_leftfoot, Color.green);
-                    DrawESPLine(eb_hips, eb_rightupleg, Color.green);
-                    DrawESPLine(eb_rightupleg, eb_rightleg, Color.green);
-                    DrawESPLine(eb_rightleg, eb_rightfoot, Color.green);
+                if (UI.t_EnemyBones)
+                {
+                    Transform[] entityBones = entity.GetComponentInChildren<SkinnedMeshRenderer>().bones;
+                    int canBone = 0;
 
-                    DrawESPLine(eb_neck, eb_leftshoulder, Color.green);
-                    DrawESPLine(eb_leftshoulder, eb_leftarm, Color.green);
-                    DrawESPLine(eb_leftarm, eb_leftforearm, Color.green);
-                    DrawESPLine(eb_leftforearm, eb_lefthand, Color.green);
+                    for (int j = 0; j < entityBones.Length; j++)
+                    {
+                        if (entityBones[j].name == "Head") { eb_head = Camera.main.WorldToScreenPoint(entityBones[j].transform.position); canBone++; } //Head
+                        if (entityBones[j].name == "Neck") { eb_neck = Camera.main.WorldToScreenPoint(entityBones[j].transform.position); canBone++; } //Neck
+                        if (entityBones[j].name == "Spine") { eb_spine = Camera.main.WorldToScreenPoint(entityBones[j].transform.position); canBone++; } //Spine
+                        if (entityBones[j].name == "LeftShoulder") { eb_leftshoulder = Camera.main.WorldToScreenPoint(entityBones[j].transform.position); canBone++; } //LeftShoulder
+                        if (entityBones[j].name == "LeftArm") { eb_leftarm = Camera.main.WorldToScreenPoint(entityBones[j].transform.position); canBone++; } //LeftArm
+                        if (entityBones[j].name == "LeftForeArm") { eb_leftforearm = Camera.main.WorldToScreenPoint(entityBones[j].transform.position); canBone++; } //LeftForeArm
+                        if (entityBones[j].name == "LeftHand") { eb_lefthand = Camera.main.WorldToScreenPoint(entityBones[j].transform.position); canBone++; } //LeftHand
+                        if (entityBones[j].name == "RightShoulder") { eb_rightshoulder = Camera.main.WorldToScreenPoint(entityBones[j].transform.position); canBone++; } //RightShoulder
+                        if (entityBones[j].name == "RightArm") { eb_rightarm = Camera.main.WorldToScreenPoint(entityBones[j].transform.position); canBone++; } //RightArm
+                        if (entityBones[j].name == "RightForeArm") { eb_rightforearm = Camera.main.WorldToScreenPoint(entityBones[j].transform.position); canBone++; } //RightForeArm
+                        if (entityBones[j].name == "RightHand") { eb_righthand = Camera.main.WorldToScreenPoint(entityBones[j].transform.position); canBone++; } //RightHand
+                        if (entityBones[j].name == "Hips") { eb_hips = Camera.main.WorldToScreenPoint(entityBones[j].transform.position); canBone++; } //Hips
+                        if (entityBones[j].name == "LeftUpLeg") { eb_leftupleg = Camera.main.WorldToScreenPoint(entityBones[j].transform.position); canBone++; } //LeftUpLeg
+                        if (entityBones[j].name == "LeftLeg") { eb_leftleg = Camera.main.WorldToScreenPoint(entityBones[j].transform.position); canBone++; } //LeftLeg
+                        if (entityBones[j].name == "LeftFoot") { eb_leftfoot = Camera.main.WorldToScreenPoint(entityBones[j].transform.position); canBone++; } //LeftFoot
+                        if (entityBones[j].name == "RightUpLeg") { eb_rightupleg = Camera.main.WorldToScreenPoint(entityBones[j].transform.position); canBone++; } //RightUpLeg
+                        if (entityBones[j].name == "RightLeg") { eb_rightleg = Camera.main.WorldToScreenPoint(entityBones[j].transform.position); canBone++; } //RightLeg
+                        if (entityBones[j].name == "RightFoot") { eb_rightfoot = Camera.main.WorldToScreenPoint(entityBones[j].transform.position); canBone++; } //RightFoot
+                    }
 
-                    DrawESPLine(eb_neck, eb_rightshoulder, Color.green);
-                    DrawESPLine(eb_rightshoulder, eb_rightarm, Color.green);
-                    DrawESPLine(eb_rightarm, eb_rightforearm, Color.green);
-                    DrawESPLine(eb_rightforearm, eb_righthand, Color.green);
+                    if (canBone >= 18)
+                    {
+                        DrawESPLine(eb_head, eb_neck, Color.green);
+                        DrawESPLine(eb_neck, eb_spine, Color.green);
+                        DrawESPLine(eb_spine, eb_hips, Color.green);
+
+                        DrawESPLine(eb_hips, eb_leftupleg, Color.green);
+                        DrawESPLine(eb_leftupleg, eb_leftleg, Color.green);
+                        DrawESPLine(eb_leftleg, eb_leftfoot, Color.green);
+                        DrawESPLine(eb_hips, eb_rightupleg, Color.green);
+                        DrawESPLine(eb_rightupleg, eb_rightleg, Color.green);
+                        DrawESPLine(eb_rightleg, eb_rightfoot, Color.green);
+
+                        DrawESPLine(eb_neck, eb_leftshoulder, Color.green);
+                        DrawESPLine(eb_leftshoulder, eb_leftarm, Color.green);
+                        DrawESPLine(eb_leftarm, eb_leftforearm, Color.green);
+                        DrawESPLine(eb_leftforearm, eb_lefthand, Color.green);
+
+                        DrawESPLine(eb_neck, eb_rightshoulder, Color.green);
+                        DrawESPLine(eb_rightshoulder, eb_rightarm, Color.green);
+                        DrawESPLine(eb_rightarm, eb_rightforearm, Color.green);
+                        DrawESPLine(eb_rightforearm, eb_righthand, Color.green);
+                    }
                 }
                 
             }
@@ -107,7 +119,6 @@ namespace Game_7D2D.Modules
 
             if (w2s_head.z > 0f && w2s_head.x > 0 && w2s_head.x < (float)Screen.width && w2s_head.y > 0 && Distance <= 100f)
             {
-                //DrawESPBox(w2s_feet, w2s_head, color, entity.name);
                 DrawESPText(w2s_feet, w2s_head, color, entity.name);
             }
         }
@@ -123,7 +134,15 @@ namespace Game_7D2D.Modules
 
             if (w2s_head.z > 0f && w2s_head.x > 0 && w2s_head.x < (float)Screen.width && w2s_head.y > 0)
             {
-                DrawESPBox(w2s_feet, w2s_head, color, entity.EntityName);
+                if (UI.t_ESPBoxes)
+                {
+                    DrawESPBox(w2s_feet, w2s_head, color, entity.EntityName);
+                }
+
+                if (UI.t_ESPLines)
+                {
+                    Render.DrawLine(new Vector2(w2s_head.x, (float)Screen.height - w2s_head.y), new Vector2((float)Screen.width / 2, (float)Screen.height - 100), color, 1f);
+                }
             }
         }
         public static void esp_drawBox(EntityPlayer entity, Color color)
@@ -137,19 +156,30 @@ namespace Game_7D2D.Modules
 
             if (w2s_head.z > 0f && w2s_head.x > 0 && w2s_head.x < (float)Screen.width && w2s_head.y > 0)
             {
-                if (entity != Hacks.eLocalPlayer)
+                if (UI.t_ESPBoxes)
                 {
-                    if (entity.IsGodMode == true)
+                    if (entity != Hacks.eLocalPlayer)
                     {
-                        DrawESPBox(w2s_feet, w2s_head, color, $"{entity.EntityName} [GOD]");
+                        if (entity.IsGodMode == true)
+                        {
+                            DrawESPBox(w2s_feet, w2s_head, color, $"{entity.EntityName} [GOD]");
+                        }
+                        else
+                        {
+                            DrawESPBox(w2s_feet, w2s_head, color, entity.EntityName);
+                        }
                     }
-                    else
+
+                    DrawESPBox(w2s_test, new Vector3(w2s_test.x - 1f, w2s_test.y - 1f, w2s_test.z), Color.green, "");
+                }
+
+                if (UI.t_ESPLines)
+                {
+                    if (entity != Hacks.eLocalPlayer)
                     {
-                        DrawESPBox(w2s_feet, w2s_head, color, entity.EntityName);
+                        Render.DrawLine(new Vector2(w2s_head.x, (float)Screen.height - w2s_head.y), new Vector2((float)Screen.width / 2, (float)Screen.height - 100), color, 1f);
                     }
                 }
-                
-                DrawESPBox(w2s_test, new Vector3(w2s_test.x - 1f, w2s_test.y - 1f, w2s_test.z), Color.green, "");
 
             }
         }
@@ -166,8 +196,15 @@ namespace Game_7D2D.Modules
 
             if (w2s_head.z > 0f && w2s_head.x > 0 && w2s_head.x < (float)Screen.width && w2s_head.y > 0 && Distance <= 100f)
             {
-                DrawESPBox(w2s_feet, w2s_head, color, entity.EntityName.Replace("animal",""));
-                DrawESPBox(w2s_test, new Vector3(w2s_test.x - 1f, w2s_test.y - 1f, w2s_test.z), Color.green, "");
+                if (UI.t_ESPBoxes)
+                {
+                    DrawESPBox(w2s_feet, w2s_head, color, entity.EntityName.Replace("animal", ""));
+                    DrawESPBox(w2s_test, new Vector3(w2s_test.x - 1f, w2s_test.y - 1f, w2s_test.z), Color.green, "");
+                }
+                if (UI.t_ESPLines)
+                {
+                    Render.DrawLine(new Vector2(w2s_head.x, (float)Screen.height - w2s_head.y), new Vector2((float)Screen.width / 2, (float)Screen.height - 100), color, 1f);
+                }
             }
         }
 
