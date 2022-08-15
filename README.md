@@ -5,8 +5,11 @@ This is a basic mod menu created in C#. It is a base which you can add your own 
 
  - ESP (Animals, Zombies/Enemies, Players, Dropped Items)
  - Bone ESP for enemies only.
+ - Press Numpad 1 to enable Creative Menu (Works in online servers also)
  - Aimbot (Select for Enemies, Players or Animals)
  Note: For Aimbot, just equip any rifle, pistol, smg, shotgun and right click (ADS) and move towards the enemy. It will snap to their head
+ 
+To improve performance, Threading was added to the code. This was causing a memory access violation which would kill the game after about 20-30 seconds. The code will remain the same as the older process for reliability. There will be short lag spikes now and then.
  
 Insert Key - Show/Hide Menu End Key - Unload DLL File safely
 
