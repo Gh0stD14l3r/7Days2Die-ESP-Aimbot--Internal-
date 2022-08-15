@@ -63,7 +63,6 @@ namespace Game_7D2D
 			GUI.color = color2;
 		}
 		
-
 		public static void DrawBox(float x, float y, float w, float h, Color color, float thickness)
 		{
 			DrawLine(new Vector2(x, y), new Vector2(x + w, y), color, thickness);

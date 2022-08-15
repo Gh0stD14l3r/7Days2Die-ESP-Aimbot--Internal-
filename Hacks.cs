@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Threading;
+using System.Threading.Tasks;
 using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
@@ -18,20 +19,18 @@ namespace Game_7D2D
         public static List<EntityNPC> eNPC = new List<EntityNPC>();
         public static List<EntityPlayer> ePlayers = new List<EntityPlayer>();
         public static List<EntityAnimal> eAnimal = new List<EntityAnimal>();
-        public static List<vp_FPWeapon> eWeapons = new List<vp_FPWeapon>();
         public static List<EntitySupplyCrate> eLoot = new List<EntitySupplyCrate>();
-
+        public static LocalPlayer localP;
         public static EntityPlayerLocal eLocalPlayer;
 
         //Menu Variables
         public static bool Menu = true;
 
         public static bool isLoaded = GameManager.Instance.gameStateManager.IsGameStarted();
-        public static ConsoleCmdGiveQualityItem console = new ConsoleCmdGiveQualityItem();
 
         public void Start()
         {
-           
+            
         }
 
         public void Update()
@@ -39,25 +38,22 @@ namespace Game_7D2D
             if (isLoaded)
             {
                 Modules.Hotkeys.hotkeys();
-
-                // 5 Second timer to loop entities and objects to return to lists
                 Timer += Time.deltaTime;
+
                 if (Timer >= 5f)
                 {
                     Timer = 0f;
 
-                    MainCamera = Camera.main;
+                    updateObjects();
 
-                    eEnemy = UnityEngine.GameObject.FindObjectsOfType<EntityEnemy>().ToList();
-                    eItem = UnityEngine.GameObject.FindObjectsOfType<EntityItem>().ToList();
-                    eNPC = UnityEngine.GameObject.FindObjectsOfType<EntityNPC>().ToList();
-                    ePlayers = UnityEngine.GameObject.FindObjectsOfType<EntityPlayer>().ToList();
-                    eAnimal = UnityEngine.GameObject.FindObjectsOfType<EntityAnimal>().ToList();
-                    eWeapons = UnityEngine.GameObject.FindObjectsOfType<vp_FPWeapon>().ToList();
-                    eLoot = UnityEngine.GameObject.FindObjectsOfType<EntitySupplyCrate>().ToList();
-
-                    eLocalPlayer = UnityEngine.GameObject.FindObjectOfType<EntityPlayerLocal>();
                 }
+
+                if (Input.GetKeyDown(KeyCode.Keypad1))
+                {
+                    GameStats.Set(EnumGameStats.IsCreativeMenuEnabled, true);
+                }
+
+
             }
             
             checkState();
@@ -85,7 +81,7 @@ namespace Game_7D2D
                 {
                     if (Enemy != null)
                     {
-                        if (Enemy.IsAlive() && Enemy.IsSpawned())
+                        if (Enemy.IsAlive())
                         {
                             Modules.ESP.esp_drawBox(Enemy, Color.red);
                         }
@@ -161,7 +157,65 @@ namespace Game_7D2D
             }
         }
 
+        public static void updateObjects()
+        {
+            if (Modules.UI.t_EnemyESP)
+            {
+                Hacks.eEnemy = UnityEngine.GameObject.FindObjectsOfType<EntityEnemy>().Where<EntityEnemy>(s => s.IsAlive()).ToList();
+                Modules.UI.dbg = $"{Hacks.eEnemy.Count}";
+            }
+            if (Modules.UI.t_ItemESP)
+            {
+                Hacks.eItem = UnityEngine.GameObject.FindObjectsOfType<EntityItem>().ToList();
+                Hacks.eLoot = UnityEngine.GameObject.FindObjectsOfType<EntitySupplyCrate>().ToList();
+            }
+            if (Modules.UI.t_NPCESP)
+            {
+                Hacks.eNPC = UnityEngine.GameObject.FindObjectsOfType<EntityNPC>().ToList();
+            }
+            if (Modules.UI.t_PlayerESP)
+            {
+                Hacks.ePlayers = UnityEngine.GameObject.FindObjectsOfType<EntityPlayer>().ToList();
+            }
+            if (Modules.UI.t_AnimalESP)
+            {
+                Hacks.eAnimal = UnityEngine.GameObject.FindObjectsOfType<EntityAnimal>().Where<EntityAnimal>(a => a.IsAlive()).ToList();
+            }
+            Hacks.localP = UnityEngine.GameObject.FindObjectOfType<LocalPlayer>();
+            Hacks.eLocalPlayer = UnityEngine.GameObject.FindObjectOfType<EntityPlayerLocal>();
 
 
+            /*await Task.Run(() =>
+            {
+                
+                if (Modules.UI.t_EnemyESP)
+                {
+                    Hacks.eEnemy = UnityEngine.GameObject.FindObjectsOfType<EntityEnemy>().ToList();
+                }
+                if (Modules.UI.t_ItemESP)
+                {
+                    Hacks.eItem = UnityEngine.GameObject.FindObjectsOfType<EntityItem>().ToList();
+                    Hacks.eLoot = UnityEngine.GameObject.FindObjectsOfType<EntitySupplyCrate>().ToList();
+                }
+                if (Modules.UI.t_NPCESP)
+                {
+                    Hacks.eNPC = UnityEngine.GameObject.FindObjectsOfType<EntityNPC>().ToList();
+                }
+                if (Modules.UI.t_PlayerESP)
+                {
+                    Hacks.ePlayers = UnityEngine.GameObject.FindObjectsOfType<EntityPlayer>().ToList();
+                }
+                if (Modules.UI.t_AnimalESP)
+                {
+                    Hacks.eAnimal = UnityEngine.GameObject.FindObjectsOfType<EntityAnimal>().ToList();
+                }
+
+                Hacks.localP = UnityEngine.GameObject.FindObjectOfType<LocalPlayer>();
+                Hacks.eLocalPlayer = UnityEngine.GameObject.FindObjectOfType<EntityPlayerLocal>();
+            });*/
+        }
+
+        
     }
+
 }

@@ -15,7 +15,6 @@ namespace Game_7D2D.Modules
         private static extern void mouse_event(int dwFlags, int dx, int dy, int cButtons, int dwExtraInfo);
 
         public static bool hasTarget = false;
-
         public static void AimAssist()
         {
             //Aimbot is semi copy and pasted

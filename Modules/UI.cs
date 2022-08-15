@@ -132,7 +132,7 @@ namespace Game_7D2D.Modules
             {
                 float basex = 260f;
 
-                GUI.Box(new Rect(basex, 5f, 140f, 130f), "");
+                GUI.Box(new Rect(basex, 5f, 140f, 160f), "");
                 
                 toggleAAim = GUI.Toggle(new Rect(basex + 10f, 10f, 130f, 25f), t_AAIM, "Activate Aimbot");
                 if (toggleAAim != t_AAIM)
@@ -163,6 +163,7 @@ namespace Game_7D2D.Modules
                 {
                     t_TFOV = !t_TFOV;
                 }
+
             }
 
         }
