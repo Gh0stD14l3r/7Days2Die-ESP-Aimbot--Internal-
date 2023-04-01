@@ -18,6 +18,7 @@ namespace Game_7D2D
 
         private static void _unload()
         {
+            Load.GetComponent<Hacks>().stopCoro();
             GameObject.Destroy(Load);
         }
         

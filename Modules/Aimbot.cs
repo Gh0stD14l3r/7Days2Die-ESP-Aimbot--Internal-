@@ -15,11 +15,13 @@ namespace Game_7D2D.Modules
         private static extern void mouse_event(int dwFlags, int dx, int dy, int cButtons, int dwExtraInfo);
 
         public static bool hasTarget = false;
+        private static Camera Camera;
         public static void AimAssist()
         {
+            Camera = Hacks.MainCamera;
             //Aimbot is semi copy and pasted
             float minDist = 9999f;
-
+            
             Vector2 target = Vector2.zero;
 
             if (UI.t_TAnimals)
@@ -29,7 +31,7 @@ namespace Game_7D2D.Modules
                     if (animal && animal.IsAlive())
                     {
                         Vector3 lookAt = animal.emodel.GetHeadTransform().position;
-                        Vector3 w2s = Camera.main.WorldToScreenPoint(lookAt);
+                        Vector3 w2s = Camera.WorldToScreenPoint(lookAt);
 
                         // If they're outside of our FOV.
                         if (Vector2.Distance(new Vector2(Screen.width / 2, Screen.height / 2), new Vector2(w2s.x, w2s.y)) > 150f)
@@ -56,7 +58,7 @@ namespace Game_7D2D.Modules
                     if (player && player.IsAlive())
                     {
                         Vector3 lookAt = player.emodel.GetHeadTransform().position;
-                        Vector3 w2s = Camera.main.WorldToScreenPoint(lookAt);
+                        Vector3 w2s = Camera.WorldToScreenPoint(lookAt);
 
                         // If they're outside of our FOV.
                         if (Vector2.Distance(new Vector2(Screen.width / 2, Screen.height / 2), new Vector2(w2s.x, w2s.y)) > 150f)
@@ -82,7 +84,7 @@ namespace Game_7D2D.Modules
                     if (enemy && enemy.IsAlive())
                     {
                         Vector3 lookAt = enemy.emodel.GetHeadTransform().position;
-                        Vector3 w2s = Camera.main.WorldToScreenPoint(lookAt);
+                        Vector3 w2s = Camera.WorldToScreenPoint(lookAt);
                     
                         // If they're outside of our FOV.
                         if (Vector2.Distance(new Vector2(Screen.width / 2, Screen.height / 2), new Vector2(w2s.x, w2s.y)) > 150f)
