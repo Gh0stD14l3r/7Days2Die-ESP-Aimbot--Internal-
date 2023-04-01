@@ -76,7 +76,7 @@ namespace Game_7D2D.Modules
 
                     t_AIM = !t_AIM;
                 }
-                //GUI.Label(new Rect(10f, 85f, (float)Screen.width, (float)Screen.height), dbg);
+                GUI.Label(new Rect(10f, 85f, (float)Screen.width, (float)Screen.height), dbg);
 
             }
 
